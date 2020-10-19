@@ -5,10 +5,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   plugins: [
-    new CompressionPlugin(),
     new webpack.DefinePlugin({
       __REACT_DEVTOOLS_GLOBAL_HOOK__: "({ isDisabled: true })",
     }),
+    new CompressionPlugin(),
     new MiniCssExtractPlugin(),
   ],
   entry: {
