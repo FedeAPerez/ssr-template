@@ -15,20 +15,6 @@ export default (req, res, page, script, style, state = null) => {
           ${helmet.link.toString()}
           <link rel="icon" href="favicon.ico" type="image/x-icon" />
           <link
-            rel="preload"
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap"
-            rel="stylesheet"
-            as="style"
-            onload="this.onload=null;this.rel='stylesheet'"
-          />
-          <noscript>
-              <link
-                  href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap"
-                  rel="stylesheet"
-                  type="text/css"
-              />
-          </noscript>
-          <link
             href="${style}"
             rel="stylesheet"
             type="text/css"

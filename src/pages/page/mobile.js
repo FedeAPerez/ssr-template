@@ -1,8 +1,13 @@
 const React = require("react");
 const PageTemplate = require("./index");
+const SSRTemplate = require("../../components/ssr-template");
 
 const Page = ({}) => {
-  return <PageTemplate></PageTemplate>;
+  return (
+    <PageTemplate>
+      <SSRTemplate />
+    </PageTemplate>
+  );
 };
 
 module.exports = Page;
