@@ -11,6 +11,7 @@ module.exports = {
     new CompressionPlugin(),
     new MiniCssExtractPlugin(),
   ],
+  mode: "production",
   entry: {
     "page.mobile": ["@babel/polyfill", "./src/client/page/mobile"],
     "page.desktop": ["@babel/polyfill", "./src/client/page/desktop"],
@@ -26,7 +27,7 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-react", "@babel/preset-env"],
+            babelrc: true,
           },
         },
       },

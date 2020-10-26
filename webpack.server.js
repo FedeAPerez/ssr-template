@@ -2,8 +2,13 @@ const path = require("path");
 const webpackNodeExternals = require("webpack-node-externals");
 
 module.exports = {
+  plugins: [
+    new webpack.DefinePlugin({
+      __REACT_DEVTOOLS_GLOBAL_HOOK__: "({ isDisabled: true })",
+    }),
+  ],
+  mode: "production",
   target: "node",
-  mode: "development",
   entry: ["@babel/polyfill", "./src/server"],
   externals: [webpackNodeExternals()],
   output: {
@@ -17,7 +22,7 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-react", "@babel/preset-env"],
+            babelrc: true,
           },
         },
       },
