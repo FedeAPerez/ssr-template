@@ -18,6 +18,7 @@ app.use(express.static("public"));
 app.get("*", deviceMiddleware);
 
 app.get("/", page.render);
+app.get("/amp", page.renderAmp);
 
 app.listen(port, () => {
   console.log(`Listening on port: ${port}`);

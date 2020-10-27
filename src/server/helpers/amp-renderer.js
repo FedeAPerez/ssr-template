@@ -16,7 +16,7 @@ const {
   linkCanonical,
 } = require("./utils");
 
-const ampRenderer = ({ res, page, style, meta }) => {
+const ampRender = ({ res, page, style, meta }) => {
   const content = renderToString(page);
   const helmet = Helmet.renderStatic();
 
@@ -44,4 +44,4 @@ const ampRenderer = ({ res, page, style, meta }) => {
   res.send(html);
 };
 
-module.exports = { ampRenderer };
+module.exports = { ampRender };
