@@ -1,52 +1,47 @@
 const { renderToString } = require("react-dom/server");
+const path = require("path");
 const { Helmet } = require("react-helmet");
 const {
-  cssImport,
   faviconImport,
-  scriptImport,
   openHead,
   closeHead,
   openBody,
   closeBody,
   metaViewport,
   metaCharset,
-  addInitialState,
-  setGlobalGA,
-  configGlobalGA,
-  trackPageViewGA,
-  setGlobalGO,
-  configGlobalGOExperiments,
+  preloadAmp,
+  loadAmp,
+  includeAmpBoilerplate,
+  loadStylesFromFile,
+  linkCanonical,
 } = require("./utils");
 
-const render = ({ res, page, script, style, state = null, experiments }) => {
+const ampRenderer = ({ res, page, style, meta }) => {
   const content = renderToString(page);
   const helmet = Helmet.renderStatic();
 
   let html = "";
   html += "<!doctype html>";
-  html += `<html ${helmet.htmlAttributes.toString()}>`;
+  html += '<html ⚡ lang="es">';
   html += openHead();
   html += `${helmet.title.toString()}`;
   html += `${helmet.meta.toString()}`;
   html += `${helmet.link.toString()}`;
+  html += includeAmpBoilerplate();
+  html += preloadAmp();
+  html += loadAmp();
+  html += loadStylesFromFile(path.join(process.cwd(), "dist", style));
   html += faviconImport("/favicon.ico");
-  html += cssImport(style);
-  html += addInitialState(state);
-  html += setGlobalGA("XXX");
-  html += configGlobalGA("XXX");
-  html += setGlobalGO("XXX", experiments);
-  html += configGlobalGOExperiments(experiments);
-  html += trackPageViewGA();
   html += metaCharset();
   html += metaViewport();
+  html += linkCanonical(meta.canonicalLink);
   html += closeHead();
   html += openBody();
   html += `<div id="root">${content}</div>`;
-  html += scriptImport(script);
   html += closeBody();
   html += "</html>";
 
   res.send(html);
 };
 
-module.exports = { render };
+module.exports = { ampRenderer };

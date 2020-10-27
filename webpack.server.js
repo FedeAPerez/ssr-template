@@ -1,12 +1,9 @@
 const path = require("path");
+const webpack = require("webpack");
 const webpackNodeExternals = require("webpack-node-externals");
 
-module.exports = {
-  plugins: [
-    new webpack.DefinePlugin({
-      __REACT_DEVTOOLS_GLOBAL_HOOK__: "({ isDisabled: true })",
-    }),
-  ],
+let config = {
+  plugins: [],
   mode: "production",
   target: "node",
   entry: ["@babel/polyfill", "./src/server"],
@@ -29,3 +26,14 @@ module.exports = {
     ],
   },
 };
+
+if (process.env.DEVELOPMENT) {
+  config.plugins.push(
+    new webpack.DefinePlugin({
+      __REACT_DEVTOOLS_GLOBAL_HOOK__: "({ isDisabled: true })",
+    })
+  );
+  config.mode = "development";
+}
+
+module.exports = config;

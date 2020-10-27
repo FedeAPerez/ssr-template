@@ -1,16 +1,11 @@
 const path = require("path");
 const webpack = require("webpack");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const CompressionPlugin = require("compression-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = {
-  plugins: [
-    new webpack.DefinePlugin({
-      __REACT_DEVTOOLS_GLOBAL_HOOK__: "({ isDisabled: true })",
-    }),
-    new CompressionPlugin(),
-    new MiniCssExtractPlugin(),
-  ],
+let config = {
+  plugins: [new CompressionPlugin(), new MiniCssExtractPlugin()],
   mode: "production",
   entry: {
     "page.mobile": ["@babel/polyfill", "./src/client/page/mobile"],
@@ -49,3 +44,19 @@ module.exports = {
     port: 8080,
   },
 };
+
+if (process.env.DEVELOPMENT) {
+  config.plugins.unshift(
+    new webpack.DefinePlugin({
+      __REACT_DEVTOOLS_GLOBAL_HOOK__: "({ isDisabled: true })",
+    })
+  );
+
+  config.mode = "development";
+}
+
+if (process.env.ANALYZE) {
+  config.plugins.unshift(new BundleAnalyzerPlugin());
+}
+
+module.exports = config;
