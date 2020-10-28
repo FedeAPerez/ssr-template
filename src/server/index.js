@@ -1,8 +1,8 @@
-import express from "express";
-import { gzipCSS, gzipJS } from "./middlewares/gzip";
-import { deviceMiddleware } from "./middlewares/device";
+const express = require("express");
+const { gzipCSS, gzipJS } = require("./middlewares/gzip");
+const { deviceMiddleware } = require("./middlewares/device");
 
-import page from "./routes/page";
+const page = require("./routes/page");
 
 const app = express();
 
