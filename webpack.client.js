@@ -45,13 +45,15 @@ let config = {
   },
 };
 
-if (process.env.DEVELOPMENT) {
+if (!process.env.DEVELOPMENT) {
   config.plugins.unshift(
     new webpack.DefinePlugin({
       __REACT_DEVTOOLS_GLOBAL_HOOK__: "({ isDisabled: true })",
     })
   );
+}
 
+if (process.env.DEVELOPMENT) {
   config.mode = "development";
 }
 

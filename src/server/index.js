@@ -1,4 +1,7 @@
 const express = require("express");
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 const { gzipCSS, gzipJS } = require("./middlewares/gzip");
 const { deviceMiddleware } = require("./middlewares/device");
 
