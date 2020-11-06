@@ -1,11 +1,11 @@
-const React = require("react");
-const { hydrate } = require("react-dom");
-const Page = require("../../pages/page/mobile");
-require("../../pages/page/styles/mobile.scss");
+const React = require('react');
+const { hydrate } = require('react-dom');
+const Page = require('../../pages/page/mobile');
+require('../../pages/page/styles/mobile.scss');
 
 const preloadedState = window.__PRELOADED_STATE__;
 
 hydrate(
-  <Page state={{ ...preloadedState }} />,
-  document.getElementById("root")
+  <Page initialState={{ ...preloadedState }} />,
+  document.getElementById('root'),
 );
